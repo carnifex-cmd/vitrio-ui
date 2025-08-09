@@ -1,0 +1,226 @@
+/* Dark theme (default) */
+:root[data-theme="dark"] {
+  --bg: #0b0b0f;
+  --panel: #111116;
+  --panel-rgb: 17, 17, 22;
+  --muted: #9aa1ac;
+  --text: #e6e7ea;
+  --border: #23232b;
+  --accent: #7c9cff;
+  --search-bg: #0f0f14;
+  --nav-hover: #0f0f14;
+  --btn-bg: #0f0f14;
+}
+
+/* Light theme */
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --panel: #f8f9fa;
+  --panel-rgb: 248, 249, 250;
+  --muted: #6b7280;
+  --text: #111827;
+  --border: #e5e7eb;
+  --accent: #3b82f6;
+  --search-bg: #f9fafb;
+  --nav-hover: #f3f4f6;
+  --btn-bg: #f9fafb;
+}
+
+/* Default to dark theme if no data-theme attribute */
+:root {
+  --bg: #0b0b0f;
+  --panel: #111116;
+  --panel-rgb: 17, 17, 22;
+  --muted: #9aa1ac;
+  --text: #e6e7ea;
+  --border: #23232b;
+  --accent: #7c9cff;
+  --search-bg: #0f0f14;
+  --nav-hover: #0f0f14;
+  --btn-bg: #0f0f14;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.doc-root {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100%;
+}
+
+.doc-aside {
+  border-right: 1px solid var(--border);
+  padding: 16px;
+  overflow: auto;
+  background: var(--bg);
+  transition: border-color 0.2s ease;
+}
+
+.doc-brand {
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.doc-search {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--search-bg);
+  color: var(--text);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.doc-search:focus {
+  border-color: var(--accent);
+}
+
+.doc-nav {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.doc-nav-item {
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  border: 1px solid transparent;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.doc-nav-item:hover {
+  background: var(--nav-hover);
+}
+
+.doc-nav-item.active {
+  border-color: var(--accent);
+  background: var(--nav-hover);
+}
+
+.doc-main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+  background: var(--bg);
+}
+
+.doc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  transition: border-color 0.2s ease;
+}
+
+.doc-header h1 {
+  margin: 0;
+  color: var(--text);
+}
+
+.doc-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.doc-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--btn-bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.doc-btn:hover {
+  border-color: var(--accent);
+  background: var(--nav-hover);
+}
+
+.doc-theme-btn {
+  padding: 6px 8px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+}
+
+.doc-preview {
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  background: var(--bg);
+  transition: background-color 0.2s ease;
+}
+
+.doc-code {
+  border-top: 1px solid var(--border);
+  background: var(--panel);
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: var(--muted);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .doc-root {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  
+  .doc-aside {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 12px;
+  }
+  
+  .doc-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .doc-nav-item {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+} 
