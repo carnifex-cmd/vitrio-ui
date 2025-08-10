@@ -14,6 +14,7 @@ import {
   CircularGlassButton,
   GlassNavbar,
   GlassHeroBanner,
+  GlassSidebar,
 } from '../src';
 import { GlassModal } from '../src/components/GlassModal/GlassModal';
 
@@ -362,6 +363,33 @@ function GlassHeroBannerPreview() {
   );
 }
 
+function GlassSidebarPreview() {
+  const [open, setOpen] = useState(false);
+  const menu = Array.from({ length: 10 }, (_, i) => ({
+    label: `Item${i + 1}`,
+    onClick: () => console.log(`Item${i + 1}`)
+  }));
+  return (
+    <div style={{ position: 'relative', minHeight: 300 }}>
+      <div style={{ display: 'flex', gap: 12 }}>
+        <CircularGlassButton
+          kind="default"
+          size={56}
+          ariaLabel={open ? 'Close sidebar' : 'Open sidebar'}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className={`demo-hamburger ${open ? 'open' : ''}`}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </CircularGlassButton>
+      </div>
+      <GlassSidebar menuItems={menu} position="left" isOpen={open} onClose={() => setOpen(false)} />
+    </div>
+  );
+}
+
 function DraggableGlassNavbar({ navItems }: { navItems: { label: string; href: string }[] }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
@@ -481,6 +509,12 @@ export const items: ShowcaseItem[] = [
     title: 'GlassHeroBanner',
     code: `import { GlassHeroBanner } from 'vitrio-ui';\n\n<GlassHeroBanner\n  title="Build glassy, modern interfaces"\n  subtitle="Vitrio provides a lightweight set of liquid-glass components built with React and TypeScript."\n  backgroundImageUrl="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2400&auto=format&fit=crop"\n  ctaButtons={[\n    { label: 'Get Started', onClick: () => {} },\n    { label: 'Docs', onClick: () => {} },\n  ]}\n/>`,
     render: () => <GlassHeroBannerPreview />,
+  },
+  {
+    id: 'glasssidebar',
+    title: 'GlassSidebar',
+    code: `import { GlassSidebar } from 'vitrio-ui';\n\n<GlassSidebar\n  menuItems={[\n    { label: 'Dashboard' },\n    { label: 'Projects' },\n    { label: 'Settings' },\n  ]}\n  position="left"\n  isOpen={true}\n/>`,
+    render: () => <GlassSidebarPreview />,
   },
   {
     id: 'glassnavbar',

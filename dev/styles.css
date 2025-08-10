@@ -26,11 +26,7 @@
   --btn-bg: #f9fafb;
 }
 
-/* Dev-only override: improve readability of glass buttons in light theme */
-:root[data-theme="light"] .doc-preview .glass-base {
-  --text: #ffffff;
-  --muted: #e7e9ef;
-}
+/* (Removed dev-only white text override for light theme to restore original colors) */
 
 /* Default to dark theme if no data-theme attribute */
 :root {
@@ -187,6 +183,32 @@ body {
   background: var(--bg);
   transition: background-color 0.2s ease;
 }
+
+/* Demo hamburger icon used in the GlassSidebar preview */
+.demo-hamburger {
+  position: relative;
+  width: 20px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.demo-hamburger span {
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+.demo-hamburger span:nth-child(1) { transform: translateY(-6px); }
+.demo-hamburger span:nth-child(2) { transform: translateY(0); }
+.demo-hamburger span:nth-child(3) { transform: translateY(6px); }
+
+.demo-hamburger.open span:nth-child(1) { transform: rotate(45deg); }
+.demo-hamburger.open span:nth-child(2) { opacity: 0; }
+.demo-hamburger.open span:nth-child(3) { transform: rotate(-45deg); }
 
 .doc-code {
   border-top: 1px solid var(--border);

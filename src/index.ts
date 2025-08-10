@@ -13,3 +13,4 @@ export { GlassModal } from './components/GlassModal/GlassModal';
 export { CircularGlassButton } from './components/CircularGlassButton/CircularGlassButton';
 export { default as GlassNavbar } from './components/GlassNavbar/GlassNavbar';
 export { default as GlassHeroBanner } from './components/GlassHeroBanner/GlassHeroBanner';
+export { default as GlassSidebar } from './components/GlassSidebar/GlassSidebar';
