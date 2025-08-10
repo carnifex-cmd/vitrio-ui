@@ -12,6 +12,8 @@ import {
   Alert,
   GlassButton,
   CircularGlassButton,
+  GlassNavbar,
+  GlassHeroBanner,
 } from '../src';
 import { GlassModal } from '../src/components/GlassModal/GlassModal';
 
@@ -208,9 +210,9 @@ function GlassModalPreview() {
         variant="primary" 
         onClick={() => setIsOpen(true)} 
       />
-      <GlassModal 
-        isOpen={isOpen} 
-        onClose={() => setIsOpen(false)} 
+      <GlassModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
         title="Glass Modal Example"
         size="md"
       >
@@ -323,6 +325,90 @@ function CircularGlassButtonPreview() {
   );
 }
 
+function GlassNavbarPreview() {
+  const demoItems = [
+    { label: 'Home', href: '#' },
+    { label: 'Docs', href: '#docs' },
+    { label: 'About', href: '#about' },
+  ];
+  return (
+    <div style={{ minHeight: 240 }}>
+      <DraggableGlassNavbar navItems={demoItems} />
+      <div style={{ padding: '72px 16px 16px 16px', color: 'var(--muted)' }}>
+        <p>
+          This is a preview area to showcase the transparent sticky GlassNavbar. Resize the
+          viewport to see the mobile hamburger and dropdown.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function GlassHeroBannerPreview() {
+  return (
+    <div style={{ minHeight: 400 }}>
+      <GlassHeroBanner
+        title="Build glassy, modern interfaces"
+        subtitle="Vitrio provides a lightweight set of liquid-glass components built with React and TypeScript."
+        backgroundImageUrl="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2400&auto=format&fit=crop"
+        ctaButtons={[
+          { label: 'Get Started', onClick: () => console.log('Get Started') },
+          { label: 'Docs', onClick: () => console.log('Docs') },
+        ]}
+        textColor="#e6e7ea"
+        mutedColor="#b3b8c2"
+      />
+    </div>
+  );
+}
+
+function DraggableGlassNavbar({ navItems }: { navItems: { label: string; href: string }[] }) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
+    e.preventDefault();
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isDragging) {
+      setPosition({ x: e.clientX - dragStart.x, y: e.clientY - dragStart.y });
+    }
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging, dragStart]);
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        cursor: isDragging ? 'grabbing' : 'grab',
+        zIndex: isDragging ? 1000 : 1,
+        userSelect: 'none',
+        width: 'max-content'
+      }}
+      onMouseDown={handleMouseDown}
+    >
+      <GlassNavbar navItems={navItems} disableSticky />
+    </div>
+  );
+}
+
 export const items: ShowcaseItem[] = [
   {
     id: 'button',
@@ -389,6 +475,18 @@ export const items: ShowcaseItem[] = [
     title: 'GlassButton',
     code: `import { GlassButton } from 'vitrio-ui';\n\n<GlassButton label="Continue" variant="primary" onClick={() => console.log('clicked')} />`,
     render: () => <GlassButtonPreview />,
+  },
+  {
+    id: 'glassherobanner',
+    title: 'GlassHeroBanner',
+    code: `import { GlassHeroBanner } from 'vitrio-ui';\n\n<GlassHeroBanner\n  title="Build glassy, modern interfaces"\n  subtitle="Vitrio provides a lightweight set of liquid-glass components built with React and TypeScript."\n  backgroundImageUrl="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2400&auto=format&fit=crop"\n  ctaButtons={[\n    { label: 'Get Started', onClick: () => {} },\n    { label: 'Docs', onClick: () => {} },\n  ]}\n/>`,
+    render: () => <GlassHeroBannerPreview />,
+  },
+  {
+    id: 'glassnavbar',
+    title: 'GlassNavbar',
+    code: `import { GlassNavbar } from 'vitrio-ui';\n\n<GlassNavbar navItems={[\n  { label: 'Home', href: '#' },\n  { label: 'Docs', href: '#docs' },\n  { label: 'About', href: '#about' },\n]} />`,
+    render: () => <GlassNavbarPreview />,
   },
   {
     id: 'circular-glassbutton',

@@ -1,0 +1,160 @@
+@import '../../utils/glassStyles.css';
+
+.container {
+  width: 100%;
+  background: transparent;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+/* Placeholder for potential brand/logo injection by parent via absolute positioning */
+.brandSlot {
+  width: 24px;
+  height: 24px;
+}
+
+.items {
+  list-style: none;
+  display: none;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .items {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.item {}
+
+.glassButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 9999px;
+  text-decoration: none;
+  color: var(--text, #e6e7ea);
+  transform: translateZ(0);
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.glassButton:hover {
+  filter: brightness(1.05);
+  transform: scale(1.03);
+}
+
+.buttonLabel {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.hamburger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 9999px;
+  background: none;
+  color: var(--text, #e6e7ea);
+  cursor: pointer;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.hamburger:hover {
+  filter: brightness(1.05);
+  transform: scale(1.03);
+}
+
+/* Hide hamburger on desktop */
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+.hamburgerIcon {
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  position: relative;
+  border-radius: 2px;
+}
+
+.hamburgerIcon::before,
+.hamburgerIcon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.hamburgerIcon::before {
+  top: -6px;
+}
+
+.hamburgerIcon::after {
+  top: 6px;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 12px 12px 12px;
+  animation: fadeSlideIn 180ms ease;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text, #e6e7ea);
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.dropdownItem:hover {
+  filter: brightness(1.05);
+  transform: scale(1.02);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+

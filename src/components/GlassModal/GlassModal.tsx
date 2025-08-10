@@ -13,7 +13,7 @@ import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { createGlassShaderMaterial, variantTints } from '../../utils/glassShaders';
-import { GlassButton } from '../GlassButton/GlassButton';
+import { CircularGlassButton } from '../CircularGlassButton/CircularGlassButton';
 import styles from './GlassModal.module.css';
 
 export interface GlassModalProps {
@@ -140,11 +140,7 @@ export const GlassModal: React.FC<GlassModalProps> = ({
               <h2 id="modal-title" className={styles.title}>{title}</h2>
               {onClose && (
                 <div className={styles.closeButtonContainer}>
-                  <GlassButton 
-                    label="×"
-                    onClick={onClose}
-                    aria-label="Close modal"
-                  />
+                  <CircularGlassButton kind="close" size="sm" onClick={onClose} ariaLabel="Close modal" />
                 </div>
               )}
             </div>
