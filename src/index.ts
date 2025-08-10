@@ -10,3 +10,4 @@ export { Switch } from './components/Switch/Switch';
 export { Alert } from './components/Alert/Alert';
 export { GlassButton } from './components/GlassButton/GlassButton';
 export { GlassModal } from './components/GlassModal/GlassModal'; 
+export { CircularGlassButton } from './components/CircularGlassButton/CircularGlassButton';

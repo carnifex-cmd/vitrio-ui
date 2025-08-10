@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, Input, Card, Modal, Navbar, Tooltip, Badge, Spinner, Switch, Alert, GlassButton,
+  Button,
+  Input,
+  Card,
+  Modal,
+  Navbar,
+  Tooltip,
+  Badge,
+  Spinner,
+  Switch,
+  Alert,
+  GlassButton,
+  CircularGlassButton,
 } from '../src';
 import { GlassModal } from '../src/components/GlassModal/GlassModal';
 
@@ -160,23 +171,30 @@ function DraggableGlassButton({ label, variant }: { label: string; variant?: 'de
 
 function GlassButtonPreview() {
   return (
-    <div 
-      style={{ 
-        display: 'flex', 
-        gap: 12, 
-        alignItems: 'center', 
-        flexWrap: 'wrap',
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
         padding: '20px',
-        minHeight: '200px'
+        minHeight: '200px',
       }}
     >
-      <p style={{ marginBottom: '16px', color: 'var(--muted)', fontSize: '14px' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 12,
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}
+      >
+        <DraggableGlassButton label="Default" />
+        <DraggableGlassButton label="Primary" variant="primary" />
+        <DraggableGlassButton label="Danger" variant="danger" />
+      </div>
+      <p style={{ marginTop: '8px', color: 'var(--muted)', fontSize: '14px' }}>
         Drag the buttons around to test the glass effect over different content!
       </p>
-      
-      <DraggableGlassButton label="Default" />
-      <DraggableGlassButton label="Primary" variant="primary" />
-      <DraggableGlassButton label="Danger" variant="danger" />
     </div>
   );
 }
@@ -210,6 +228,97 @@ function GlassModalPreview() {
           />
         </div>
       </GlassModal>
+    </div>
+  );
+}
+
+function DraggableCircularGlassButton(
+  props: {
+    kind?: 'close' | 'info' | 'prev' | 'next' | 'default' | 'custom';
+    variant?: 'default' | 'primary' | 'danger';
+    size?: number | 'sm' | 'md' | 'lg';
+    icon?: React.ReactNode;
+    disabled?: boolean;
+    children?: React.ReactNode;
+  }
+) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y });
+    e.preventDefault();
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isDragging) {
+      setPosition({ x: e.clientX - dragStart.x, y: e.clientY - dragStart.y });
+    }
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging, dragStart]);
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        cursor: isDragging ? 'grabbing' : 'grab',
+        zIndex: isDragging ? 1000 : 1,
+        userSelect: 'none',
+      }}
+      onMouseDown={handleMouseDown}
+    >
+      <CircularGlassButton {...props} />
+    </div>
+  );
+}
+
+function CircularGlassButtonPreview() {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        padding: '20px',
+        minHeight: '200px',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          gap: 12,
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}
+      >
+        <DraggableCircularGlassButton kind="close" size="sm" />
+        <DraggableCircularGlassButton kind="info" />
+        <DraggableCircularGlassButton kind="prev" variant="primary" />
+        <DraggableCircularGlassButton kind="next" variant="danger" />
+        <DraggableCircularGlassButton kind="custom" icon={<span>?</span>} size={56} variant="primary" />
+        <DraggableCircularGlassButton kind="info" disabled />
+        <DraggableCircularGlassButton kind="default" size={56}>
+          <span style={{ fontSize: 14, fontWeight: 600 }}>OK</span>
+        </DraggableCircularGlassButton>
+      </div>
+      <p style={{ marginTop: '8px', color: 'var(--muted)', fontSize: '14px' }}>
+        Drag the circular buttons around to test the glass effect over different content!
+      </p>
     </div>
   );
 }
@@ -280,6 +389,12 @@ export const items: ShowcaseItem[] = [
     title: 'GlassButton',
     code: `import { GlassButton } from 'vitrio-ui';\n\n<GlassButton label="Continue" variant="primary" onClick={() => console.log('clicked')} />`,
     render: () => <GlassButtonPreview />,
+  },
+  {
+    id: 'circular-glassbutton',
+    title: 'CircularGlassButton',
+    code: `import { CircularGlassButton } from 'vitrio-ui';\n\n<div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>\n  <CircularGlassButton kind="close" size="sm" />\n  <CircularGlassButton kind="info" />\n  <CircularGlassButton kind="prev" variant="primary" />\n  <CircularGlassButton kind="next" variant="danger" />\n  <CircularGlassButton kind="custom" icon={<span>?</span>} size={56} variant="primary" />\n  <CircularGlassButton kind="default" size={56}>OK</CircularGlassButton>\n</div>`,
+    render: () => <CircularGlassButtonPreview />,
   },
   {
     id: 'glassmodal',
