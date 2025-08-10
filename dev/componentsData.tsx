@@ -15,6 +15,7 @@ import {
   GlassNavbar,
   GlassHeroBanner,
   GlassSidebar,
+  GlassProjectCard,
 } from '../src';
 import { GlassModal } from '../src/components/GlassModal/GlassModal';
 
@@ -390,6 +391,7 @@ function GlassSidebarPreview() {
   );
 }
 
+// (draggable demo removed)
 function DraggableGlassNavbar({ navItems }: { navItems: { label: string; href: string }[] }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
@@ -515,6 +517,29 @@ export const items: ShowcaseItem[] = [
     title: 'GlassSidebar',
     code: `import { GlassSidebar } from 'vitrio-ui';\n\n<GlassSidebar\n  menuItems={[\n    { label: 'Dashboard' },\n    { label: 'Projects' },\n    { label: 'Settings' },\n  ]}\n  position="left"\n  isOpen={true}\n/>`,
     render: () => <GlassSidebarPreview />,
+  },
+  {
+    id: 'glassprojectcard',
+    title: 'GlassProjectCard',
+    code: `import { GlassProjectCard } from 'vitrio-ui';\n\n<GlassProjectCard\n  title="Project Alpha"\n  description="A blazing fast UI library demo."\n  imageUrl="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop"\n  tags={["React", "TypeScript", "Shaders"]}\n  demoLink="#"\n  codeLink="#"\n/>`,
+    render: () => (
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: 16, width: '100%', alignItems: 'start' }}>
+        <GlassProjectCard
+          title="Project Alpha"
+          description="A blazing fast UI library demo."
+          imageUrl="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop"
+          tags={["React", "TypeScript", "Shaders"]}
+          demoLink="#"
+          codeLink="#"
+        />
+        <GlassProjectCard
+          title="Project Beta"
+          description="Elegant components with liquid glass aesthetics."
+          imageUrl="https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=1200&auto=format&fit=crop"
+          tags={["UI", "Design"]}
+        />
+      </div>
+    ),
   },
   {
     id: 'glassnavbar',

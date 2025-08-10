@@ -14,3 +14,4 @@ export { CircularGlassButton } from './components/CircularGlassButton/CircularGl
 export { default as GlassNavbar } from './components/GlassNavbar/GlassNavbar';
 export { default as GlassHeroBanner } from './components/GlassHeroBanner/GlassHeroBanner';
 export { default as GlassSidebar } from './components/GlassSidebar/GlassSidebar';
+export { default as GlassProjectCard } from './components/GlassProjectCard/GlassProjectCard';

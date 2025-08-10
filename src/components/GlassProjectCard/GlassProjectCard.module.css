@@ -1,0 +1,119 @@
+@import '../../utils/glassStyles.css';
+
+.card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 200ms ease;
+  will-change: transform;
+  aspect-ratio: 16/9;
+  min-height: clamp(260px, 28vw, 380px);
+  box-sizing: border-box;
+  display: block;
+  contain: paint;
+}
+
+.card:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.visible {
+  animation: fadeUp 360ms ease both;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.0);
+  transition: transform 300ms ease;
+  z-index: 0;
+}
+
+.card:hover .bgImage {
+  transform: scale(1.04);
+}
+
+.imageOverlay {
+  position: absolute !important;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.overlayVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlayButtons {
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+}
+
+
+.infoGlass {
+  position: absolute !important;
+  left: 24px;
+  right: 24px;
+  bottom: 18px;
+  border-radius: 22px; /* pill/squircle */
+  padding: 14px 16px;
+  z-index: 2;
+  overflow: hidden;
+  top: auto;
+  box-sizing: border-box;
+}
+
+.infoContent { 
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  margin: 6px 0 6px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text, #e6e7ea);
+  word-break: break-word;
+}
+
+.description {
+  margin: 0 0 10px 0;
+  color: var(--muted, #9aa1ac);
+  line-height: 1.6;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  color: var(--text, #e6e7ea);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
