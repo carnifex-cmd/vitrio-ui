@@ -521,7 +521,7 @@ export const items: ShowcaseItem[] = [
   {
     id: 'glassprojectcard',
     title: 'GlassProjectCard',
-    code: `import { GlassProjectCard } from 'vitrio-ui';\n\n<GlassProjectCard\n  title="Project Alpha"\n  description="A blazing fast UI library demo."\n  imageUrl="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop"\n  tags={["React", "TypeScript", "Shaders"]}\n  demoLink="#"\n  codeLink="#"\n/>`,
+    code: `import { GlassProjectCard } from 'vitrio-ui';\n\n<GlassProjectCard\n  title="Project Alpha"\n  description="A blazing fast UI library demo."\n  imageUrl="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop"\n  tags={["React", "TypeScript", "Shaders"]}\n  demoLink="#"\n  codeLink="#"\n  buttonTextTheme="light"\n/>`,
     render: () => (
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: 16, width: '100%', alignItems: 'start' }}>
         <GlassProjectCard
@@ -531,12 +531,14 @@ export const items: ShowcaseItem[] = [
           tags={["React", "TypeScript", "Shaders"]}
           demoLink="#"
           codeLink="#"
+          buttonTextTheme="light"
         />
         <GlassProjectCard
           title="Project Beta"
           description="Elegant components with liquid glass aesthetics."
           imageUrl="https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=1200&auto=format&fit=crop"
           tags={["UI", "Design"]}
+          buttonTextTheme="light"
         />
       </div>
     ),
