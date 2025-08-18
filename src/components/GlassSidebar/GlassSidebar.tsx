@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styles from './GlassSidebar.module.css';
+import GlassUserInfo, { UserInfo } from '../GlassUserInfo/GlassUserInfo';
 
 export interface GlassSidebarItem {
   label: string;
@@ -15,6 +16,15 @@ export interface GlassSidebarProps {
   /** If true, on desktop widths the sidebar remains docked instead of overlay. */
   dockedDesktop?: boolean;
   className?: string;
+  /** User information to display at the top of the sidebar */
+  userInfo?: UserInfo;
+  /** User action handlers */
+  onUserProfileClick?: () => void;
+  onUserSettingsClick?: () => void;
+  onUserLogoutClick?: () => void;
+  onUserNotificationsClick?: () => void;
+  /** Show user info in compact mode */
+  compactUserInfo?: boolean;
 }
 
 const GlassSidebar: React.FC<GlassSidebarProps> = ({
@@ -24,6 +34,12 @@ const GlassSidebar: React.FC<GlassSidebarProps> = ({
   onClose,
   dockedDesktop = false,
   className,
+  userInfo,
+  onUserProfileClick,
+  onUserSettingsClick,
+  onUserLogoutClick,
+  onUserNotificationsClick,
+  compactUserInfo = false,
 }) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
@@ -60,6 +76,21 @@ const GlassSidebar: React.FC<GlassSidebarProps> = ({
         aria-label="Glass Sidebar"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* User Info Section */}
+        {userInfo && (
+          <div className={styles.userInfoSection}>
+            <GlassUserInfo
+              user={userInfo}
+              onProfileClick={onUserProfileClick}
+              onSettingsClick={onUserSettingsClick}
+              onLogoutClick={onUserLogoutClick}
+              onNotificationsClick={onUserNotificationsClick}
+              compact={compactUserInfo}
+            />
+          </div>
+        )}
+
+        {/* Menu Items */}
         <ul className={styles.menu}>
           {menuItems.map((item, index) => (
             <li key={`${item.label}-${index}`} className={styles.menuItemWrap}>

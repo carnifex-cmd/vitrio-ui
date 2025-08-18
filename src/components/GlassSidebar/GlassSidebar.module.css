@@ -103,6 +103,12 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* User info section */
+.userInfoSection {
+  margin-bottom: 16px;
+  animation: fadeIn 300ms ease both;
+}
+
 /* Docked sidebar on desktop */
 @media (min-width: 1024px) {
   .dockedDesktop.open .overlay { display: none; }

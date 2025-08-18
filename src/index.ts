@@ -15,3 +15,4 @@ export { default as GlassNavbar } from './components/GlassNavbar/GlassNavbar';
 export { default as GlassHeroBanner } from './components/GlassHeroBanner/GlassHeroBanner';
 export { default as GlassSidebar } from './components/GlassSidebar/GlassSidebar';
 export { default as GlassProjectCard } from './components/GlassProjectCard/GlassProjectCard';
+export { default as GlassUserInfo } from './components/GlassUserInfo/GlassUserInfo';

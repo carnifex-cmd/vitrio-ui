@@ -16,6 +16,7 @@ import {
   GlassHeroBanner,
   GlassSidebar,
   GlassProjectCard,
+  GlassUserInfo,
 } from '../src';
 import { GlassModal } from '../src/components/GlassModal/GlassModal';
 
@@ -366,12 +367,22 @@ function GlassHeroBannerPreview() {
 
 function GlassSidebarPreview() {
   const [open, setOpen] = useState(false);
-  const menu = Array.from({ length: 10 }, (_, i) => ({
+  const menu = Array.from({ length: 6 }, (_, i) => ({
     label: `Item${i + 1}`,
     onClick: () => console.log(`Item${i + 1}`)
   }));
+  
+  const sampleUser = {
+    name: "Alex Johnson",
+    email: "alex.johnson@example.com", 
+    role: "Product Designer",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+    isOnline: true,
+    notificationCount: 3
+  };
+
   return (
-    <div style={{ position: 'relative', minHeight: 300 }}>
+    <div style={{ position: 'relative', minHeight: 400 }}>
       <div style={{ display: 'flex', gap: 12 }}>
         <CircularGlassButton
           kind="default"
@@ -386,7 +397,86 @@ function GlassSidebarPreview() {
           </span>
         </CircularGlassButton>
       </div>
-      <GlassSidebar menuItems={menu} position="left" isOpen={open} onClose={() => setOpen(false)} />
+      <GlassSidebar 
+        menuItems={menu} 
+        position="left" 
+        isOpen={open} 
+        onClose={() => setOpen(false)}
+        userInfo={sampleUser}
+        onUserProfileClick={() => console.log('Profile clicked')}
+        onUserSettingsClick={() => console.log('Settings clicked')}
+        onUserLogoutClick={() => console.log('Logout clicked')}
+        onUserNotificationsClick={() => console.log('Notifications clicked')}
+      />
+    </div>
+  );
+}
+
+function GlassUserInfoPreview() {
+  const [compactMode, setCompactMode] = useState(false);
+  
+  const sampleUsers = [
+    {
+      name: "Sarah Chen",
+      email: "sarah.chen@company.com",
+      role: "Senior Developer",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+      isOnline: true,
+      notificationCount: 5
+    },
+    {
+      name: "Michael Rodriguez",
+      email: "m.rodriguez@company.com", 
+      role: "Product Manager",
+      isOnline: false,
+      notificationCount: 0
+    },
+    {
+      name: "Emma Thompson",
+      email: "emma.t@company.com",
+      role: "UX Designer",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+      isOnline: true,
+      notificationCount: 12
+    }
+  ];
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, padding: '20px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <label style={{ color: 'var(--text)', fontSize: 14 }}>
+          <input 
+            type="checkbox" 
+            checked={compactMode} 
+            onChange={(e) => setCompactMode(e.target.checked)}
+            style={{ marginRight: 8 }}
+          />
+          Compact Mode
+        </label>
+      </div>
+      
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
+        gap: 16,
+        alignItems: 'start'
+      }}>
+        {sampleUsers.map((user, index) => (
+          <GlassUserInfo
+            key={index}
+            user={user}
+            compact={compactMode}
+            onProfileClick={() => console.log(`${user.name} profile clicked`)}
+            onSettingsClick={() => console.log(`${user.name} settings clicked`)}
+            onLogoutClick={() => console.log(`${user.name} logout clicked`)}
+            onNotificationsClick={() => console.log(`${user.name} notifications clicked`)}
+          />
+        ))}
+      </div>
+      
+      <p style={{ color: 'var(--muted)', fontSize: '14px', marginTop: '8px' }}>
+        Interactive user info cards with glass styling, online status, notification badges, and action buttons.
+      </p>
     </div>
   );
 }
@@ -515,8 +605,14 @@ export const items: ShowcaseItem[] = [
   {
     id: 'glasssidebar',
     title: 'GlassSidebar',
-    code: `import { GlassSidebar } from 'vitrio-ui';\n\n<GlassSidebar\n  menuItems={[\n    { label: 'Dashboard' },\n    { label: 'Projects' },\n    { label: 'Settings' },\n  ]}\n  position="left"\n  isOpen={true}\n/>`,
+    code: `import { GlassSidebar } from 'vitrio-ui';\n\n<GlassSidebar\n  menuItems={[\n    { label: 'Dashboard' },\n    { label: 'Projects' },\n    { label: 'Settings' },\n  ]}\n  userInfo={{\n    name: "Alex Johnson",\n    email: "alex.johnson@example.com",\n    role: "Product Designer",\n    avatar: "https://...",\n    isOnline: true,\n    notificationCount: 3\n  }}\n  position="left"\n  isOpen={true}\n/>`,
     render: () => <GlassSidebarPreview />,
+  },
+  {
+    id: 'glassuserinfo',
+    title: 'GlassUserInfo',
+    code: `import { GlassUserInfo } from 'vitrio-ui';\n\n<GlassUserInfo\n  user={{\n    name: "Sarah Chen",\n    email: "sarah.chen@company.com",\n    role: "Senior Developer",\n    avatar: "https://...",\n    isOnline: true,\n    notificationCount: 5\n  }}\n  onProfileClick={() => {}}\n  onSettingsClick={() => {}}\n  onLogoutClick={() => {}}\n  onNotificationsClick={() => {}}\n/>`,
+    render: () => <GlassUserInfoPreview />,
   },
   {
     id: 'glassprojectcard',
